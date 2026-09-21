@@ -142,6 +142,7 @@ letterField.readOnly = true;
 letterField.setAttribute('aria-readonly', 'true');
 const coverUpload = $('#cover-upload');
 const coverImage = $('.mag-image');
+coverImage.querySelector('span').innerHTML = "AHANA'S<br> COVER<br> PHOTO";
 const heroPhoto = $('[data-photo-target="hero"]');
 const makeImage = (src, alt = 'Ahana') => { const image = document.createElement('img'); image.src = src; image.alt = alt; return image; };
 coverUpload.addEventListener('change', (event) => { const file = event.target.files[0]; if (!file) return; const src = URL.createObjectURL(file); coverImage.replaceChildren(makeImage(src)); heroPhoto.replaceChildren(makeImage(src)); });
