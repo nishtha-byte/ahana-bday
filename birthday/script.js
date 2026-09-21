@@ -76,7 +76,7 @@ I genuinely cannot think about him normally anymore because of you. There was a 
 
 The funniest part is that you don't even like him THAT much anymore, but the damage has already been done. You created the association. You cannot undo it.
 
-Nischay Malhan = Ahana lore.
+Nischay Malhan = Ahana core
 
 And then, of course…
 
@@ -145,6 +145,7 @@ const coverImage = $('.mag-image');
 coverImage.querySelector('span').innerHTML = "AHANA'S<br> COVER<br> PHOTO";
 const heroPhoto = $('[data-photo-target="hero"]');
 const makeImage = (src, alt = 'Ahana') => { const image = document.createElement('img'); image.src = src; image.alt = alt; return image; };
+heroPhoto.replaceChildren(makeImage('ahana-photo.jpeg', 'Ahana in her favourite photo'));
 coverUpload.addEventListener('change', (event) => { const file = event.target.files[0]; if (!file) return; const src = URL.createObjectURL(file); coverImage.replaceChildren(makeImage(src)); heroPhoto.replaceChildren(makeImage(src)); });
 coverUpload.disabled = true;
 document.querySelector('.upload-label').hidden = true;
@@ -159,7 +160,8 @@ const memoryStatus = $('#memory-status');
 const memoryCards = ['MATAR', 'MATAR', 'PATAGOBHI', 'PATAGOBHI', 'PALAK', 'PALAK'];
 let firstCard; let secondCard; let matchedPairs = 0; let lockBoard = false;
 const clearCards = () => { firstCard = null; secondCard = null; lockBoard = false; };
-const resetMemory = () => { memoryBoard.replaceChildren(); matchedPairs = 0; clearCards(); memoryCards.sort(() => Math.random() - .5).forEach((symbol) => { const card = document.createElement('button'); card.className = 'memory-card'; card.dataset.symbol = symbol; card.innerHTML = `<span>${symbol}</span>`; card.addEventListener('click', () => { if (lockBoard || card === firstCard || card.classList.contains('matched')) return; card.classList.add('flipped'); if (!firstCard) { firstCard = card; return; } secondCard = card; lockBoard = true; if (firstCard.dataset.symbol === secondCard.dataset.symbol) { firstCard.classList.add('matched'); secondCard.classList.add('matched'); matchedPairs += 1; memoryStatus.innerHTML = matchedPairs === 3 ? 'sabji gang forever ✦ <small>you found every pair</small>' : `nice one ✦ <small>${matchedPairs} / 3 matched</small>`; clearCards(); } else { setTimeout(() => { firstCard.classList.remove('flipped'); secondCard.classList.remove('flipped'); clearCards(); }, 700); } }); memoryBoard.appendChild(card); }); };
+const memoryPhoto = { PALAK: 'palak-photo.jpeg', PATAGOBHI: 'patagobhi-photo.jpeg' };
+const resetMemory = () => { memoryBoard.replaceChildren(); matchedPairs = 0; clearCards(); memoryCards.sort(() => Math.random() - .5).forEach((symbol) => { const card = document.createElement('button'); card.className = `memory-card ${symbol.toLowerCase()}`; card.dataset.symbol = symbol; card.innerHTML = memoryPhoto[symbol] ? `<span><img src="${memoryPhoto[symbol]}" alt="${symbol} memory" /></span>` : `<span>${symbol}</span>`; card.addEventListener('click', () => { if (lockBoard || card === firstCard || card.classList.contains('matched')) return; card.classList.add('flipped'); if (!firstCard) { firstCard = card; return; } secondCard = card; lockBoard = true; if (firstCard.dataset.symbol === secondCard.dataset.symbol) { firstCard.classList.add('matched'); secondCard.classList.add('matched'); matchedPairs += 1; memoryStatus.innerHTML = matchedPairs === 3 ? 'sabji gang forever ✦ <small>you found every pair</small>' : `nice one ✦ <small>${matchedPairs} / 3 matched</small>`; clearCards(); } else { setTimeout(() => { firstCard.classList.remove('flipped'); secondCard.classList.remove('flipped'); clearCards(); }, 700); } }); memoryBoard.appendChild(card); }); };
 $('#memory-reset').addEventListener('click', resetMemory);
 resetMemory();
 const video = $('#camera'); const canvas = $('#snapshot-canvas'); const fallback = $('#camera-fallback'); const startButton = $('#start-camera'); const takeButton = $('#take-photo'); const boothUpload = $('#booth-upload'); const slots = $$('.strip-slot'); let stream; let shots = []; let activeFilter = 'normal'; let filterClass = 'normal';
