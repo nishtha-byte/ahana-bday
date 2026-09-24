@@ -1,7 +1,7 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const stickerLayer = $('#sticker-layer');
-['✦', '♡', '★', 'ahh!', '✿', 'xoxo', '🎀', '♥', 'yay!', '✧', 'flower power', '★'].forEach((stickerText, index) => {
+['✦', '♡', '★', 'ahh!', '✿', 'xoxo', '🎀', '♥', 'yay!', '✧', 'flower power', 'ahana the baddie',  '★'].forEach((stickerText, index) => {
 	const sticker = document.createElement('span');
 	sticker.className = 'sticker';
 	sticker.textContent = stickerText;
